@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+</head>
+
+<style>
+.on{
+    background-image: url("green.jpeg");
+    width:55px;
+    height:35px;
+}
+
+.off{
+    background-image: url("red.jpeg");
+    width:55px;
+    height:35px;
+}
+
+
+
+
+</style>
+
+<script>
+
+
+function toggle(lightNumber){
+            var id = "image"+lightNumber;
+            var image =  document.getElementById(id);
+            var status = "off";
+
+            if (image.getAttribute('src') == "/static/green.jpeg") 
+                {
+                    image.src = "/static/red.jpeg";
+                    image.class="off";
+                    status = "on";
+                }
+                else
+                {
+                    image.src = "/static/green.jpeg";
+                    image.class="on";
+                    status="off";
+                }
+                
+                $.ajax({
+                url:"operate/"+status+"/"+lightNumber,
+                type:"POST",
+                success:function(response){
+                console.log("sucess");
+                },
+                error:function(err){
+                console.log("error");
+                }
+                
+                
+                });
+                        
+
+}
+
+</script>
+
+<body>
+
+<H1> Toggle The lights from worldwide  </H1>
+
+<br/>
+
+<table id="lighTable"  border="1">
+
+<thead>
+<tr>
+<th>
+Light Number
+</th>
+<th>
+Status
+</th>
+</tr>
+
+</thead>
+
+<tr>
+<td>
+Light 1
+
+</td>
+
+<td>
+<button  id="light1" onclick="toggle(1)"/><img id="image1" src="/static/red.jpeg" class="on"/>
+
+</td>
+</tr>
+<tr>
+
+<td>
+Light 2
+
+</td>
+
+<td>
+<button id="light2" onclick="toggle(2)" /><img id="image2" src="/static/red.jpeg" class="on"/>
+
+
+</td>
+</tr>
+
+<tr>
+
+<td>
+Light 3
+
+</td>
+
+<td>
+<button id="light3" onclick="toggle(3)"/><img id="image3" src="/static/red.jpeg" class="on"/>
+
+
+</td>
+</tr>
+
+
+
+
+
+</table>
+
+
+</body>
+
+</html>
